@@ -1,6 +1,3 @@
-<?php
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,6 +56,30 @@
               <h6 class="m-0 font-weight-bold text-primary">Data Aspirasi</h6>
             </div>
             <div class="card-body">
+              <div class="row">
+                <form action="/cetak-laporan-aspirasi.php" method="POST" id="filter-saya">
+                  <div class="col-12 form-group row mr-5">
+                    <div class="col-4">
+                      <input type="date" class="form-control" name="awal" required>
+                    </div>
+                    <div class="col-4">
+                      <input type="date" class="form-control" name="akhir" required>
+                    </div>
+                    <div class="col-2">
+                      <select name="file" class="form-control">
+                        <option value="pdf">Pdf</option>
+                        <option value="excel">Excel</option>
+                      </select>
+                    </div>
+                    <div class="col-2">
+                      <div class="btn-group">
+                        <input type="buttton" class="btn btn-primary" id="tampilkan" value="Tampilkan">
+                        <input type="submit" class="btn btn-success" name="submitcetak" value="Cetak Laporan">
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
               <div class="table-responsive">
                 <table class="table table-bordered" width="100%" cellspacing="0">
                   <thead>
@@ -76,30 +97,6 @@
 
                   </tbody>
                 </table>
-              </div>
-              <div class="row">
-                <form action="" method="POST" id="filter-saya">
-                  <div class="col-12 form-group row mr-5">
-                    <div class="col-4">
-                      <input type="date" class="form-control" name="awal" required>
-                    </div>
-                    <div class="col-4">
-                      <input type="date" class="form-control" name="akhir" required>
-                    </div>
-                    <div class="col-2">
-                      <select name="file" class="form-control">
-                        <option value="pdf">Pdf</option>
-                        <option value="excel">Excel</option>
-                      </select>
-                    </div>
-                    <div class="col-2">
-                      <input type="submit" class="btn btn-primary" name="submitcetak" value="Cetak Laporan">
-                    </div>
-                    <div class="col-2">
-                      <input type="submit" class="btn btn-primary" name="tampil" value="Tampil">
-                    </div>
-                  </div>
-
               </div>
             </div>
           </div>
@@ -219,7 +216,7 @@
   ?>
   <script type="text/javascript">
     $(document).ready(function() {
-      update()
+      update();
     });
 
     function selesai() {
@@ -239,13 +236,13 @@
         })
       })
     }
-    $("#filter-saya").submit(function(e) {
+    $("#tampilkan").click(function(e) {
       e.preventDefault();
       let awal = $('[name=awal]').val(),
         akhir = $('[name=akhir]').val()
       $.ajax({
           method: "POST",
-          url: "getDataPengaduan.php",
+          url: "getDataAspirasi.php",
           data: {
             awal,
             akhir
@@ -256,7 +253,7 @@
           $("tbody").empty();
           nomor = 1;
           $("tbody").html(jsonData.result.map(hsl => {
-            return `<tr><td>${nomor} </td><td>${hsl.nama} </td><td>${hsl.no_hp} </td><td>${hsl.alamat} </td><td>${hsl.tentang} </td><td>${hsl.tanggal} </td><td>${hsl.waktu} </td><td>${hsl.keterangan} </td><td  class='text-center align-middle'><a href='data-pengaduan-edit.php?id=${hsl.id}' class='btn btn-info btn-sm'>Edit<i class='fas fa-edit ml-2'></i></a></td></tr>`;
+            return `<tr><td>${nomor++} </td><td>${hsl.nama} </td><td>${hsl.no_hp} </td><td>${hsl.alamat} </td><td>${hsl.tentang} </td><td>${hsl.tanggal} </td><td>${hsl.waktu} </td><td>${hsl.keterangan} </td><td  class='text-center align-middle'><a href='data-pengaduan-edit.php?id=${hsl.id}' class='btn btn-info btn-sm'>Edit<i class='fas fa-edit ml-2'></i></a></td></tr>`;
           }).reduce((a, b) => a + b, ""));
         });
 
