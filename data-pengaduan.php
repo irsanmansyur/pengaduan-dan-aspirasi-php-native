@@ -57,7 +57,7 @@
             </div>
             <div class="card-body">
               <div class="row">
-                <form action="" method="POST" id="filter-saya">
+                <form action="/cetak-laporan-pengaduan.php" method="POST" id="filter-saya">
                   <div class="col-12 form-group row mr-5">
                     <div class="col-4">
                       <input type="date" class="form-control" name="awal" required>
@@ -65,14 +65,17 @@
                     <div class="col-4">
                       <input type="date" class="form-control" name="akhir" required>
                     </div>
-                    <!-- <div class="col-2">
+                    <div class="col-2">
                       <select name="file" class="form-control">
                         <option value="pdf">Pdf</option>
                         <option value="excel">Excel</option>
                       </select>
-                    </div> -->
+                    </div>
                     <div class="col-2">
-                      <input type="submit" class="btn btn-primary" name="submitcetak" value="Filter">
+                      <div class="btn-group">
+                        <input type="buttton" class="btn btn-primary" id="tampilkan" value="Tampilkan">
+                        <input type="submit" class="btn btn-success" name="submitcetak" value="Cetak Laporan">
+                      </div>
                     </div>
                   </div>
                 </form>
@@ -215,7 +218,7 @@
         })
       })
     }
-    $("#filter-saya").submit(function(e) {
+    $("#tampilkan").click(function(e) {
       e.preventDefault();
       let awal = $('[name=awal]').val(),
         akhir = $('[name=akhir]').val()
