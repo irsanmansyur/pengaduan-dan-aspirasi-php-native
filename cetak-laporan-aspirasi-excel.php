@@ -1,7 +1,7 @@
 <?php
     include 'function.php';
     $awal = $_GET['awal'];
-    $akhir = $_GET['akhir'];
+    $akhir = $_GET['akhir']; dsfhdjfhdkj
     $datas = query("SELECT 
     data_akun.nama as nama,
     data_pengaduan_dan_aspirasi.no_hp as no_hp,
